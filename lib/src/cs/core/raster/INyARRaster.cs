@@ -1,20 +1,21 @@
-/* 
- * PROJECT: NyARToolkitCS(Extension)
- * -------------------------------------------------------------------------------
- * The NyARToolkitCS is Java edition ARToolKit class library.
- * Copyright (C)2008-2012 Ryo Iizuka
+﻿/* 
+ * PROJECT: NyARToolkit(Extension)
+ * --------------------------------------------------------------------------------
  *
+ * The NyARToolkit is Java edition ARToolKit class library.
+ * Copyright (C)2008-2012 Ryo Iizuka
+ * 
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * it under the terms of the GNU Lesser General Public License as publishe
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * For further information please contact.
@@ -23,7 +24,7 @@
  * 
  */
 using System;
-
+using System.Diagnostics;
 namespace jp.nyatla.nyartoolkit.cs.core
 {
 
@@ -60,7 +61,7 @@ namespace jp.nyatla.nyartoolkit.cs.core
          * @return
          * バッファを格納したオブジェクト。
          */
-        object getBuffer();
+        Object getBuffer();
         /**
          * この関数は、バッファの画素形式を返します。
          * 実装クラスでは、{@link #getBuffer}の返すバッファの形式を返してください。
@@ -88,16 +89,18 @@ namespace jp.nyatla.nyartoolkit.cs.core
         /**
          * この関数は、外部参照バッファをラップして、ラスタのバッファにします。
          * 実装クラスでは、できる限り整合性チェックをしたうえで、バッファを切り替える処理を実装してください。
-         * この関数は、実装しなくともかまいません。その場合は、{@link NyARException}例外を発生させてください。
+         * この関数は、実装しなくともかまいません。その場合は、{@link NyARRuntimeException}例外を発生させてください。
          * @param i_ref_buf
          * 切り替える外部参照バッファオブジェクト。
          */
-        void wrapBuffer(object i_ref_buf);
+        void wrapBuffer(Object i_ref_buf);
         /**
-         * ARTKに必要なラスタドライバインタフェイスを返す。
+         * ARTKに必要なラスタオペレーションインタフェイスを返す。
+         * ラスタオペレーションインタフェイスは、ラスタに対するバッチ処理を実装します。
+         * 生成には時間がかかるのでキャッシュしてください。
          * @return
          */
-        object createInterface(Type i_iid);
+        Object createInterface(Type i_iid);
 
     }
 }

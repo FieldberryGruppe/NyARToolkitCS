@@ -1,26 +1,27 @@
-/* 
- * PROJECT: NyARToolkitCS (Extension)
+﻿/* 
+ * PROJECT: NyARToolkitCS
  * --------------------------------------------------------------------------------
- * This work is based on the original ARToolKit developed by
+ *
+ * The NyARToolkitCS is C# edition NyARToolKit class library.
+ * Copyright (C)2008-2012 Ryo Iizuka
+ *
+ * This work is based on the ARToolKit developed by
  *   Hirokazu Kato
  *   Mark Billinghurst
  *   HITLab, University of Washington, Seattle
  * http://www.hitl.washington.edu/artoolkit/
- *
- * The NyARToolkitCS is Java edition ARToolKit class library.
- * Copyright (C)2008-2009 Ryo Iizuka
- *
+ * 
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * it under the terms of the GNU Lesser General Public License as publishe
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * For further information please contact.
@@ -54,25 +55,17 @@ namespace jp.nyatla.nyartoolkit.cs.core
 
         private INyARCameraDistortionFactor _ref_dist_factor;
 
-        /**
-         * コンストラクタです。
-         * 派生クラスで自分でメンバオブジェクトを指定したい場合はこちらを使います。
-         */
-        protected NyARTransMat()
-        {
-            //_calculator,_rotmatrix,_mat_optimizeをコンストラクタの終了後に
-            //作成して割り当ててください。
-            return;
-        }
 
         /**
-         * この関数は、コンストラクタから呼び出してください。
-         * @param i_distfactor
-         * 歪みの逆矯正に使うオブジェクト。
-         * @param i_projmat
+         * コンストラクタです。
+         * 座標計算に必要なオブジェクトの参照値を元に、インスタンスを生成します。
+         * @param i_ref_distfactor
+         * 樽型歪み矯正オブジェクトの参照値です。歪み矯正が不要な時は、nullを指定します。
+         * @param i_ref_projmat
+         * 射影変換オブジェクトの参照値です。
          * @
          */
-        private void initInstance(INyARCameraDistortionFactor i_distfactor, NyARPerspectiveProjectionMatrix i_projmat)
+        public NyARTransMat(INyARCameraDistortionFactor i_distfactor, NyARPerspectiveProjectionMatrix i_projmat)
         {
             this._transsolver = new NyARTransportVectorSolver(i_projmat, 4);
             //互換性が重要な時は、NyARRotMatrix_ARToolKitを使うこと。
@@ -83,20 +76,7 @@ namespace jp.nyatla.nyartoolkit.cs.core
             this._ref_projection_mat = i_projmat;
             return;
         }
-        /**
-         * コンストラクタです。
-         * 座標計算に必要なオブジェクトの参照値を元に、インスタンスを生成します。
-         * @param i_ref_distfactor
-         * 樽型歪み矯正オブジェクトの参照値です。歪み矯正が不要な時は、nullを指定します。
-         * @param i_ref_projmat
-         * 射影変換オブジェクトの参照値です。
-         * @
-         */
-        public NyARTransMat(INyARCameraDistortionFactor i_ref_distfactor, NyARPerspectiveProjectionMatrix i_ref_projmat)
-        {
-            initInstance(i_ref_distfactor, i_ref_projmat);
-            return;
-        }
+
         /**
          * コンストラクタです。
          * 座標計算に必要なカメラパラメータの参照値を元に、インスタンスを生成します。
@@ -106,8 +86,8 @@ namespace jp.nyatla.nyartoolkit.cs.core
          * @
          */
         public NyARTransMat(NyARParam i_param)
+            : this(i_param.getDistortionFactor(), i_param.getPerspectiveProjectionMatrix())
         {
-            initInstance(i_param.getDistortionFactor(), i_param.getPerspectiveProjectionMatrix());
             return;
         }
 

@@ -1,20 +1,21 @@
-/* 
- * PROJECT: NyARToolkitCS(Extension)
- * -------------------------------------------------------------------------------
- * The NyARToolkitCS is Java edition ARToolKit class library.
- * Copyright (C)2008-2012 Ryo Iizuka
+﻿/* 
+ * PROJECT: NyARToolkit(Extension)
+ * --------------------------------------------------------------------------------
  *
+ * The NyARToolkit is Java edition ARToolKit class library.
+ * Copyright (C)2008-2012 Ryo Iizuka
+ * 
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * it under the terms of the GNU Lesser General Public License as publishe
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * For further information please contact.
@@ -26,9 +27,6 @@ using System;
 using System.Diagnostics;
 namespace jp.nyatla.nyartoolkit.cs.core
 {
-
-
-
 
     /**
      * このクラスは、指定形式のバッファを持つインスタンスを生成します。
@@ -43,9 +41,27 @@ namespace jp.nyatla.nyartoolkit.cs.core
     public class NyARRaster : NyARRaster_BasicClass
     {
         /** バッファオブジェクトの変数*/
-        protected object _buf;
+        protected Object _buf;
         /** バッファオブジェクトがアタッチされていればtrue*/
         protected bool _is_attached_buffer;
+        /**
+         * コンストラクタです。
+         * 画像のサイズパラメータとバッファ形式を指定して、インスタンスを生成します。
+         * @param i_width
+         * ラスタのサイズ
+         * @param i_height
+         * ラスタのサイズ
+         * @param i_buffer_type
+         * ラスタの画素形式。
+         * {@link NyARBufferType}に定義された定数値を指定してください。
+         * 指定できる値は、クラスの説明を見てください。
+         * @throws NyARRuntimeException
+         */
+        public NyARRaster(int i_width, int i_height, int i_buffer_type):this(i_width, i_height, i_buffer_type, true)
+        {
+            
+            return;
+        }
         /**
          * コンストラクタです。
          * 画像のサイズパラメータとバッファ形式を指定して、インスタンスを生成します。
@@ -61,35 +77,14 @@ namespace jp.nyatla.nyartoolkit.cs.core
          * バッファを外部参照にするかのフラグ値。
          * trueなら内部バッファ、falseなら外部バッファを使用します。
          * falseの場合、初期のバッファはnullになります。インスタンスを生成したのちに、{@link #wrapBuffer}を使って割り当ててください。
-         * @
+         * @throws NyARRuntimeException
          */
-        public NyARRaster(int i_width, int i_height, int i_buffer_type, bool i_is_alloc):base(i_width, i_height, i_buffer_type)
+        public NyARRaster(int i_width, int i_height, int i_buffer_type, bool i_is_alloc)
+            : base(i_width, i_height, i_buffer_type)
         {
-
             if (!initInstance(this._size, i_buffer_type, i_is_alloc))
             {
-                throw new NyARException();
-            }
-            return;
-        }
-        /**
-         * コンストラクタです。
-         * 画像のサイズパラメータとバッファ形式を指定して、インスタンスを生成します。
-         * @param i_width
-         * ラスタのサイズ
-         * @param i_height
-         * ラスタのサイズ
-         * @param i_buffer_type
-         * ラスタの画素形式。
-         * {@link NyARBufferType}に定義された定数値を指定してください。
-         * 指定できる値は、クラスの説明を見てください。
-         * @
-         */
-        public NyARRaster(int i_width, int i_height, int i_buffer_type): base(i_width, i_height, i_buffer_type)
-        {
-            if (!initInstance(this._size, i_buffer_type, true))
-            {
-                throw new NyARException();
+                throw new NyARRuntimeException();
             }
             return;
         }
@@ -104,7 +99,7 @@ namespace jp.nyatla.nyartoolkit.cs.core
          * @return
          * 初期化に成功するとtrueを返します。
          */
-        protected bool initInstance(NyARIntSize i_size, int i_buf_type, bool i_is_alloc)
+        private bool initInstance(NyARIntSize i_size, int i_buf_type, bool i_is_alloc)
         {
             switch (i_buf_type)
             {
@@ -123,7 +118,7 @@ namespace jp.nyatla.nyartoolkit.cs.core
          * この関数は、ラスタのバッファへの参照値を返します。
          * バッファの形式は、コンストラクタに指定した形式と同じです。
          */
-        public override object getBuffer()
+        override public Object getBuffer()
         {
             return this._buf;
         }
@@ -132,7 +127,7 @@ namespace jp.nyatla.nyartoolkit.cs.core
          * コンストラクタでi_is_allocをfalseにしてラスタを作成した場合、
          * バッファにアクセスするまえに、バッファの有無をこの関数でチェックしてください。
          */
-        public override bool hasBuffer()
+        override public bool hasBuffer()
         {
             return this._buf != null;
         }
@@ -140,15 +135,16 @@ namespace jp.nyatla.nyartoolkit.cs.core
          * この関数は、ラスタに外部参照バッファをセットします。
          * 外部参照バッファを持つインスタンスでのみ使用できます。内部参照バッファを持つインスタンスでは使用できません。
          */
-        public override void wrapBuffer(object i_ref_buf)
+        override public void wrapBuffer(Object i_ref_buf)
         {
             Debug.Assert(!this._is_attached_buffer);//バッファがアタッチされていたら機能しない。
             this._buf = i_ref_buf;
         }
-        public override object createInterface(Type iIid)
+        override public Object createInterface(Type iIid)
         {
             // TODO Auto-generated method stub
             return null;
         }
+
     }
 }

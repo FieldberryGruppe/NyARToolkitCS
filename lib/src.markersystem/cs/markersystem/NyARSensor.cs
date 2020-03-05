@@ -1,20 +1,27 @@
-/* 
- * PROJECT: NyARToolkit(Extension)
+﻿/* 
+ * PROJECT: NyARToolkitCS
  * --------------------------------------------------------------------------------
- * The NyARToolkit is Java edition ARToolKit class library.
- * Copyright (C)2008-2009 Ryo Iizuka
  *
+ * The NyARToolkitCS is C# edition NyARToolKit class library.
+ * Copyright (C)2008-2012 Ryo Iizuka
+ *
+ * This work is based on the ARToolKit developed by
+ *   Hirokazu Kato
+ *   Mark Billinghurst
+ *   HITLab, University of Washington, Seattle
+ * http://www.hitl.washington.edu/artoolkit/
+ * 
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * it under the terms of the GNU Lesser General Public License as publishe
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * For further information please contact.
@@ -40,38 +47,15 @@ namespace jp.nyatla.nyartoolkit.cs.markersystem
         protected long _gs_hist_ts;
         public NyARSensor(NyARIntSize i_size)
         {
-            this.initInstance(i_size);
-            this._hist_drv = (INyARHistogramFromRaster)this._gs_raster.createInterface(typeof(INyARHistogramFromRaster));
-        }
-        /**
-         * 画像ドライバに依存するインスタンスの生成。
-         * 継承クラスで上書きする。
-         * @param s
-         * @
-         */
-        protected void initResource(NyARIntSize s)
-        {
-            this._gs_raster = new NyARGrayscaleRaster(s.w, s.h, NyARBufferType.INT1D_GRAY_8, true);
-        }
-        /**
-         * 共通初期化関数。
-         * @param i_param
-         * @param i_drv_factory
-         * ラスタドライバのファクトリ。
-         * @param i_gs_type
-         * @param i_rgb_type
-         * @return
-         * @
-         */
-        private void initInstance(NyARIntSize i_size)
-        {
-            //リソースの生成
-            this.initResource(i_size);
+            this._gs_raster = NyARGrayscaleRaster.createInstance(i_size.w, i_size.h, NyARBufferType.INT1D_GRAY_8, true);
             this._gs_hist = new NyARHistogram(256);
             this._src_ts = 0;
             this._gs_id_ts = 0;
             this._gs_hist_ts = 0;
+            this._hist_drv = (INyARHistogramFromRaster)this._gs_raster.createInterface(typeof(INyARHistogramFromRaster));
         }
+
+
         /**
          * キャッシュしている射影変換ドライバを返します。
          * この関数は、内部処理向けの関数です。

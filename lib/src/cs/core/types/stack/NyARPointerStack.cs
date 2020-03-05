@@ -1,20 +1,27 @@
-/* 
- * PROJECT: NyARToolkitCS(Extension)
+﻿/* 
+ * PROJECT: NyARToolkitCS
  * --------------------------------------------------------------------------------
- * The NyARToolkitCS is Java edition ARToolKit class library.
- * Copyright (C)2008-2009 Ryo Iizuka
  *
+ * The NyARToolkitCS is C# edition NyARToolKit class library.
+ * Copyright (C)2008-2012 Ryo Iizuka
+ *
+ * This work is based on the ARToolKit developed by
+ *   Hirokazu Kato
+ *   Mark Billinghurst
+ *   HITLab, University of Washington, Seattle
+ * http://www.hitl.washington.edu/artoolkit/
+ * 
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * it under the terms of the GNU Lesser General Public License as publishe
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * For further information please contact.
@@ -45,16 +52,6 @@ namespace jp.nyatla.nyartoolkit.cs.core
         protected int _length;
 
         /**
-         * コンストラクタです。
-         * クラスの実体化を禁止するために宣言しています。
-         * 継承クラスから呼び出してください。
-         * @
-         */
-        protected NyARPointerStack()
-        {
-        }
-
-        /**
          * この関数は、インスタンスを初期化します。
          * この関数は、このクラスを継承したクラスのコンストラクタから呼び出します。
          * @param i_length
@@ -63,7 +60,7 @@ namespace jp.nyatla.nyartoolkit.cs.core
          * 配列型を示すクラスタイプ
          * @
          */
-        protected virtual void initInstance(int i_length)
+        protected NyARPointerStack(int i_length)
         {
             //領域確保
             this._items = new T[i_length];
@@ -164,6 +161,25 @@ namespace jp.nyatla.nyartoolkit.cs.core
             return this._length;
         }
         /**
+         * この関数は、データ長が0であるかを返します。
+         * @return
+         */
+        public bool isEmpty()
+        {
+            return this._length == 0;
+        }
+        public void swap(int i_idx1, int i_idx_2)
+        {
+            if (i_idx1 != i_idx_2)
+            {
+                T[] list = this._items;
+                T tmp = list[i_idx1];
+                list[i_idx1] = list[i_idx_2];
+                list[i_idx_2] = tmp;
+            }
+        }
+
+        /**
          * この関数は、配列の最大サイズを返します。
          * @return
          */
@@ -183,10 +199,9 @@ namespace jp.nyatla.nyartoolkit.cs.core
 
             if (i_index != this._length - 1)
             {
-                int i;
                 int len = this._length - 1;
                 T[] items = this._items;
-                for (i = i_index; i < len; i++)
+                for (int i = i_index; i < len; i++)
                 {
                     items[i] = items[i + 1];
                 }

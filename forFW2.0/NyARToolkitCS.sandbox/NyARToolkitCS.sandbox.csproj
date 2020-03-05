@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,8 +10,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>jp.nyatla.nyartoolkit.cs.sandbox</RootNamespace>
     <AssemblyName>NyARToolkitCS.sandbox</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,22 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cs\core\types\matrix\NyARFixedFloat16Matrix33.cs" />
-    <Compile Include="cs\core\types\matrix\NyARFixedFloat24Matrix33.cs" />
-    <Compile Include="cs\core\types\matrix\NyARI64Matrix22.cs" />
-    <Compile Include="cs\core\types\matrix\NyARI64Matrix33.cs" />
-    <Compile Include="cs\core\types\NyARFixedFloat16Point2d.cs" />
-    <Compile Include="cs\core\types\NyARFixedFloat16Point3d.cs" />
-    <Compile Include="cs\core\types\NyARI64Linear.cs" />
-    <Compile Include="cs\core\types\NyARI64Point2d.cs" />
-    <Compile Include="cs\core\types\NyARI64Point3d.cs" />
-    <Compile Include="cs\quadx2\NyARRasterFilter_ARTTh_Quad.cs" />
-    <Compile Include="cs\x2\NyARFixedFloat16Mat.cs" />
-    <Compile Include="cs\x2\NyARFixedFloatObserv2IdealMap.cs" />
-    <Compile Include="cs\x2\NyARFixedFloatIdeal2Observ.cs" />
-    <Compile Include="cs\x2\NyARFixedFloatTransOffset.cs" />
-    <Compile Include="cs\x2\NyARFixedFloatVertexCounter.cs" />
-    <Compile Include="cs\x2\NyMath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,7 +50,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="cs\core\analyzer\histgram\" />
+    <Folder Include="cs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

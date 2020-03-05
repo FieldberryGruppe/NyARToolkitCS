@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,8 +10,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NyARToolkitCS.markersystem</RootNamespace>
     <AssemblyName>NyARToolkitCS.markersystem</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,54 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\INyARMarkerSystemConfig.cs">
-      <Link>cs\markersystem\INyARMarkerSystemConfig.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\INyARMarkerSystemSquareDetect.cs">
-      <Link>cs\markersystem\INyARMarkerSystemSquareDetect.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\INyARSingleCameraSystemObserver.cs">
-      <Link>cs\markersystem\INyARSingleCameraSystemObserver.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\NyARMarkerSystem.cs">
-      <Link>cs\markersystem\NyARMarkerSystem.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\NyARMarkerSystemConfig.cs">
-      <Link>cs\markersystem\NyARMarkerSystemConfig.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\NyARSensor.cs">
-      <Link>cs\markersystem\NyARSensor.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\NyARSingleCameraSystem.cs">
-      <Link>cs\markersystem\NyARSingleCameraSystem.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\utils\ARMarkerList.cs">
-      <Link>cs\markersystem\utils\ARMarkerList.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\utils\ARMarkerSortList.cs">
-      <Link>cs\markersystem\utils\ARMarkerSortList.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\utils\ARPlayCardList.cs">
-      <Link>cs\markersystem\utils\ARPlayCardList.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\utils\MultiResolutionPattProvider.cs">
-      <Link>cs\markersystem\utils\MultiResolutionPattProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\utils\NyIdList.cs">
-      <Link>cs\markersystem\utils\NyIdList.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\utils\SquareStack.cs">
-      <Link>cs\markersystem\utils\SquareStack.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\utils\TMarkerData.cs">
-      <Link>cs\markersystem\utils\TMarkerData.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\utils\TrackingList.cs">
-      <Link>cs\markersystem\utils\TrackingList.cs</Link>
-    </Compile>
-    <Compile Include="..\..\lib\src.markersystem\cs\markersystem\utils\VertexSortTable.cs">
-      <Link>cs\markersystem\utils\VertexSortTable.cs</Link>
-    </Compile>
+    <Compile Include="..\..\lib\src.markersystem\**\*.*">
+      <Link>src.markersystem\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>    
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

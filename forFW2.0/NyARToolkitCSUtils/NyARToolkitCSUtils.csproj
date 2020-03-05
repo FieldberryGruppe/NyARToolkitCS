@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,8 +10,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NyARToolkitCSUtils</RootNamespace>
     <AssemblyName>NyARToolkitCSUtils</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,6 +43,7 @@
     <Reference Include="Microsoft.DirectX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.DirectX.Direct3D, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.DirectX.Direct3DX, Version=1.0.2911.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.VisualC" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -48,7 +54,7 @@
     <Compile Include="Capture\CaptureDevice.cs" />
     <Compile Include="Capture\CaptureDeviceList.cs" />
     <Compile Include="Capture\CaptureListener.cs" />
-    <Compile Include="NyARBitmapRaster.cs" />
+    <Compile Include="Direct3d\markersystem\NyARD3dNftSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,17 +62,12 @@
       <Project>{AEE9408B-7E03-42AD-A0D9-A5B7F2D20B3C}</Project>
       <Name>NyARToolkitCS.markersystem</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NyARToolkitCS.rpf\NyARToolkitCS.rpf.csproj">
-      <Project>{D6CAB4C1-55C7-4314-B224-6645800B0D74}</Project>
-      <Name>NyARToolkitCS.rpf</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NyARToolkitCS\NyARToolkitCS.csproj">
       <Project>{80391577-476D-4DAD-A4F8-F03C726ACBD8}</Project>
       <Name>NyARToolkitCS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Capture\rpf\NyARRealitySource_DShow.cs" />
     <Compile Include="Capture\VideoFormat.cs" />
     <Compile Include="Capture\VideoFormatList.cs" />
   </ItemGroup>
@@ -88,7 +89,6 @@
     <Compile Include="Direct3d\NyARD3dTexture.cs" />
     <Compile Include="Direct3d\sketch\D3dSketch.cs" />
     <Compile Include="Direct3d\NyARD3dUtil.cs" />
-    <Compile Include="Direct3d\rpf\NyARRealityD3d.cs" />
     <Compile Include="Capture\markersystem\NyARDirectShowCamera.cs" />
     <Compile Include="Direct3d\sketch\D3dSketchForm.cs">
       <SubType>Form</SubType>

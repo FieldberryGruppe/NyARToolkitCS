@@ -1,20 +1,27 @@
-/* 
+﻿/* 
  * PROJECT: NyARToolkitCS
  * --------------------------------------------------------------------------------
- * The NyARToolkitCS is Java edition ARToolKit class library.
- * Copyright (C)2008-2009 Ryo Iizuka
  *
+ * The NyARToolkitCS is C# edition NyARToolKit class library.
+ * Copyright (C)2008-2012 Ryo Iizuka
+ *
+ * This work is based on the ARToolKit developed by
+ *   Hirokazu Kato
+ *   Mark Billinghurst
+ *   HITLab, University of Washington, Seattle
+ * http://www.hitl.washington.edu/artoolkit/
+ * 
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * it under the terms of the GNU Lesser General Public License as publishe
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * For further information please contact.
@@ -44,16 +51,6 @@ namespace jp.nyatla.nyartoolkit.cs.core
     public class NyARObjectStack<T> : NyARPointerStack<T>
     {
         /**
-         * コンストラクタです。
-         * クラスの実体化を禁止するために宣言しています。
-         * 継承クラスから呼び出してください。
-         * @
-         */
-        protected NyARObjectStack()
-        {
-            return;
-        }
-        /**
          * この関数は、インスタンスを初期化します。
          * 継承クラスのコンストラクタから呼び出します。
          * {@link #initInstance(int, Class, Object)}との違いは、オブジェクトの生成に引数を渡すかどうかです。
@@ -62,10 +59,9 @@ namespace jp.nyatla.nyartoolkit.cs.core
          * 配列の最大長さ
          * @
          */
-        protected override void initInstance(int i_length)
+        protected NyARObjectStack(int i_length):base(i_length)
         {
             //領域確保
-            base.initInstance(i_length);
             for (int i = 0; i < i_length; i++)
             {
                 this._items[i] = createElement();
@@ -85,10 +81,9 @@ namespace jp.nyatla.nyartoolkit.cs.core
          * 配列要素を生成するときに渡すパラメータ
          * @
          */
-        protected void initInstance(int i_length, object i_param)
+        protected NyARObjectStack(int i_length, object i_param):base(i_length)
         {
             //領域確保
-            base.initInstance(i_length);
             for (int i = 0; i < i_length; i++)
             {
                 this._items[i] = createElement(i_param);
@@ -105,7 +100,7 @@ namespace jp.nyatla.nyartoolkit.cs.core
          */
         protected virtual T createElement()
         {
-            throw new NyARException();
+            throw new NyARRuntimeException();
         }
         /**
          * この関数は、配列要素のオブジェクトを(引数付きで)１個作ります。
@@ -117,7 +112,7 @@ namespace jp.nyatla.nyartoolkit.cs.core
          */
         protected virtual T createElement(object i_param)
         {
-            throw new NyARException();
+            throw new NyARRuntimeException();
         }
 
         /**
@@ -157,21 +152,30 @@ namespace jp.nyatla.nyartoolkit.cs.core
             // 必要に応じてアロケート
             if (i_reserv_length >= this._items.Length)
             {
-                throw new NyARException();
+                throw new NyARRuntimeException();
             }
             this._length = i_reserv_length;
         }
         //override
         public override void remove(int i_index)
         {
-            if (i_index != this._length - 1)
-            {
-                T item = this._items[i_index];
-                //要素をシフト
-                base.remove(i_index);
-                //外したオブジェクトを末端に取り付ける
-                this._items[this._length] = item;
-            }
+		    int len=this._length-1;
+		    if(i_index!=len){
+		    //末端以外の場合は前方詰めと差し替え
+			
+			    //削除対象のオブジェクトを保存
+			    T item=this._items[i_index];
+			    //前方詰め
+			    T[] items=this._items;
+			    for(int i=i_index;i<len;i++)
+			    {
+				    items[i]=items[i+1];
+			    }
+			    //外したオブジェクトを末端に取り付ける
+			    this._items[len]=item;
+		    }
+		    //要素数を1減らす
+		    this._length--;
         }
         //override
         public override void removeIgnoreOrder(int i_index)
